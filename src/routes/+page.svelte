@@ -5,16 +5,29 @@
   import ProblemCard from '$lib/components/ProblemCard.svelte';
   import ChatActivity from '$lib/components/ChatActivity.svelte';
   import ProblemSetInfo from '$lib/components/ProblemSetInfo.svelte';
+  import ImportJSON from '$lib/components/ImportJSON.svelte';
   import { AlertCircle } from 'lucide-svelte';
+  import type { VisualizationData } from '$lib/types';
   
-  let { data }: { data: PageData } = $props();
+  interface PageDataWithViz extends PageData {
+    data: VisualizationData | null;
+    error: string | null;
+  }
+  
+  let { data }: { data: PageDataWithViz } = $props();
   
   const totalSubmissions = $derived(
-    data.data ? data.data.problems.reduce((sum, p) => sum + p.submissions.length, 0) : 0
+    data.data ? data.data.problems.reduce((sum: number, p) => sum + p.submissions.length, 0) : 0
   );
 </script>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header with Import Button -->
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Session Visualization</h1>
+    <ImportJSON />
+  </div>
+  
   {#if data.error || !data.data}
     <div class="bg-red-50 border border-red-200 rounded-lg p-6">
       <div class="flex items-center space-x-3">

@@ -18,7 +18,7 @@ import {
   ProblemSetItemSchema,
   LabelPredictionPairTestSchema,
   LabelPredictionPairSchema
-} from '../../zod_schema_corrected';
+} from './schemas';
 
 // Infer types from schemas
 export type SessionData = z.infer<typeof SessionDataSchema>;

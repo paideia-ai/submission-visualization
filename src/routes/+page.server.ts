@@ -250,7 +250,8 @@ export const load: PageServerLoad = async () => {
     };
     
     return {
-      data: visualizationData
+      data: visualizationData,
+      error: null
     };
   } catch (error) {
     console.error('Error loading visualization data:', error);

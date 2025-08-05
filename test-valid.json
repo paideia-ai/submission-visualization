@@ -1,0 +1,12 @@
+[
+  {
+    "id": "test-session",
+    "isComplete": 1,
+    "problemSet": {
+      "id": "test-set",
+      "problems": [],
+      "expireMinutes": null
+    },
+    "progresses": []
+  }
+]

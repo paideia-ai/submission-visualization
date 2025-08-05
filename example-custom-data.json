@@ -1,0 +1,119 @@
+[
+  {
+    "id": "custom-session-001",
+    "isComplete": 1,
+    "problemSet": {
+      "id": "custom-problem-set-001",
+      "problems": [
+        {
+          "problem_id": "custom-problem-001",
+          "progress_id": "custom-progress-001",
+          "problem_version": 1,
+          "resolved_problem_id": "custom-problem-001"
+        },
+        {
+          "problem_id": "custom-problem-002",
+          "progress_id": null,
+          "problem_version": 1,
+          "resolved_problem_id": "custom-problem-002"
+        }
+      ],
+      "expireMinutes": 60
+    },
+    "progresses": [
+      {
+        "id": "custom-progress-001",
+        "problemId": "custom-problem-001",
+        "createdAt": "2024-01-15T10:00:00Z",
+        "labelPredictionBatchTestUnlocked": null,
+        "axiiaChat": {
+          "id": "custom-axiia-chat-001",
+          "chat": {
+            "id": "custom-chat-001",
+            "createdAt": "2024-01-15T10:05:00Z",
+            "systemPrompt": "You are a helpful assistant.",
+            "chatRequests": [
+              {
+                "id": "custom-request-001",
+                "chatId": "custom-chat-001",
+                "createdAt": "2024-01-15T10:05:30Z",
+                "updatedAt": "2024-01-15T10:05:35Z",
+                "input": "How do I solve this problem?",
+                "output": "Here's how you can approach this problem...",
+                "streamingId": null,
+                "upstreamRequestId": null,
+                "upstreamErrored": 0,
+                "terminatedByUser": 0
+              }
+            ]
+          }
+        },
+        "submissionSnapshots": [
+          {
+            "id": "custom-snapshot-001",
+            "timestamp": "2024-01-15T10:10:00Z",
+            "isValid": 1,
+            "progressId": "custom-progress-001",
+            "textId": "custom-text-001",
+            "text": "def solution():\n    return 42",
+            "feedback": {
+              "id": "custom-feedback-001",
+              "timestamp": "2024-01-15T10:10:30Z",
+              "snapshotId": "custom-snapshot-001",
+              "feedbackMemberships": [
+                {
+                  "id": 1,
+                  "runId": "custom-run-001",
+                  "feedbackId": "custom-feedback-001",
+                  "run": {
+                    "id": "custom-run-001",
+                    "createdAt": "2024-01-15T10:10:15Z",
+                    "updatedAt": "2024-01-15T10:10:30Z",
+                    "problemId": "custom-problem-001",
+                    "problemVersion": 1,
+                    "submissionTextId": "custom-text-001",
+                    "output": "Test passed",
+                    "taskObservationId": null,
+                    "upstreamRequestId": "custom-upstream-001",
+                    "upstreamErrored": 0,
+                    "terminatedByUser": 0,
+                    "extractedFields": "{}",
+                    "renderedResult": "All tests passed successfully"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "customChats": [
+          {
+            "id": "custom-custom-chat-001",
+            "progressId": "custom-progress-001",
+            "title": "Debug Helper",
+            "sourcePresetId": null,
+            "chat": {
+              "id": "custom-chat-002",
+              "createdAt": "2024-01-15T10:15:00Z",
+              "systemPrompt": "You are a debugging assistant.",
+              "chatRequests": [
+                {
+                  "id": "custom-request-002",
+                  "chatId": "custom-chat-002",
+                  "createdAt": "2024-01-15T10:15:30Z",
+                  "updatedAt": "2024-01-15T10:15:40Z",
+                  "input": "Why is my code not working?",
+                  "output": "Let me help you debug this issue...",
+                  "streamingId": null,
+                  "upstreamRequestId": null,
+                  "upstreamErrored": false,
+                  "terminatedByUser": false
+                }
+              ]
+            }
+          }
+        ],
+        "labelPredictionPairTests": []
+      }
+    ]
+  }
+]
