@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Problem } from '$lib/types';
+  import type { ProcessedProblem } from '$lib/types';
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
   
   interface Props {
-    problems: Problem[];
+    problems: ProcessedProblem[];
   }
   
   let { problems }: Props = $props();

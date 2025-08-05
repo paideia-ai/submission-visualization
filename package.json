@@ -26,8 +26,10 @@
   "dependencies": {
     "@skeletonlabs/skeleton": "^2.10.2",
     "@skeletonlabs/tw-plugin": "^0.4.0",
+    "@types/node": "^24.2.0",
     "d3": "^7.8.5",
     "date-fns": "^3.3.1",
-    "lucide-svelte": "^0.344.0"
+    "lucide-svelte": "^0.344.0",
+    "zod": "^4.0.14"
   }
 }

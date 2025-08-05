@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Submission } from '$lib/types';
+  import type { ProcessedSubmission } from '$lib/types';
   import { format } from 'date-fns';
   import { CheckCircle, XCircle, ChevronDown, ChevronUp } from 'lucide-svelte';
   
   interface Props {
-    submission: Submission;
+    submission: ProcessedSubmission;
   }
   
   let { submission }: Props = $props();
@@ -56,11 +56,12 @@
       {#if submission.feedback}
         <div class="mt-3 p-3 bg-yellow-50 rounded">
           <p class="text-sm font-semibold text-gray-700 mb-2">Feedback Evaluation:</p>
-          {#each submission.feedback.runs as run}
+          {#each submission.feedback.feedbackMemberships as membership}
+            {@const run = membership.run}
             <div class="space-y-2">
               <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-gray-700">
-                  Overall Rating: <span class="text-lg font-bold text-yellow-700">{run.extractedFields.overall}</span>
+                  Overall Rating: <span class="text-lg font-bold text-yellow-700">{JSON.parse(run.extractedFields).overall || 'N/A'}</span>
                 </p>
                 <p class="text-xs text-gray-600">
                   {format(new Date(run.createdAt), 'MMM d, HH:mm:ss')}
@@ -71,10 +72,10 @@
                 <p class="text-sm text-gray-700 whitespace-pre-wrap">{run.renderedResult}</p>
               </div>
               
-              {#if expanded && run.parsedFeedback?.overall}
+              {#if expanded && run.extractedFields}
                 <div class="mt-2">
-                  <p class="text-xs font-medium text-gray-600">Parsed Overall:</p>
-                  <p class="text-sm text-gray-700">{run.parsedFeedback.overall.trim()}</p>
+                  <p class="text-xs font-medium text-gray-600">Extracted Fields:</p>
+                  <p class="text-sm text-gray-700">{run.extractedFields}</p>
                 </div>
               {/if}
               

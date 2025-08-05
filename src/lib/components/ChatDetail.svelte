@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Chat } from '$lib/types';
+  import type { ProcessedChat, ChatRequest } from '$lib/types';
   import { format } from 'date-fns';
   import { MessageSquare, AlertCircle, CheckCircle, XCircle } from 'lucide-svelte';
   
   interface Props {
-    chat: Chat;
+    chat: ProcessedChat;
   }
   
   let { chat }: Props = $props();
@@ -51,13 +51,13 @@
         <div class="flex items-center justify-between mb-1">
           <p class="text-xs font-semibold text-gray-700">Request {idx + 1}</p>
           <div class="flex items-center space-x-2">
-            {#if request.terminated}
+            {#if (request as any).terminatedByUser}
               <span class="text-xs text-orange-600 flex items-center">
                 <AlertCircle class="w-3 h-3 mr-1" />
                 Terminated
               </span>
             {/if}
-            {#if request.errored}
+            {#if (request as any).upstreamErrored}
               <span class="text-xs text-red-600 flex items-center">
                 <XCircle class="w-3 h-3 mr-1" />
                 Error
@@ -72,7 +72,7 @@
         </div>
         
         <p class="text-xs text-gray-600 mb-1">
-          {format(new Date(request.timestamp), 'MMM d, HH:mm:ss')}
+          {format(new Date((request as any).timestamp || (request as any).createdAt), 'MMM d, HH:mm:ss')}
         </p>
         
         <div class="space-y-2">

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Problem } from '$lib/types';
+  import type { ProcessedProblem } from '$lib/types';
   import { format } from 'date-fns';
-  import { FileText, MessageSquare, CheckCircle, XCircle } from 'lucide-svelte';
+  import { FileText, MessageSquare, CheckCircle, XCircle, Target } from 'lucide-svelte';
   import ChatDetail from './ChatDetail.svelte';
   import SubmissionDetail from './SubmissionDetail.svelte';
   
   interface Props {
-    problem: Problem;
+    problem: ProcessedProblem;
     index: number;
   }
   
@@ -63,6 +63,29 @@
       <p class="text-xs text-green-600">
         {format(new Date(problem.feedbackReceived.timestamp), 'MMM d, HH:mm:ss')}
       </p>
+    </div>
+  {/if}
+  
+  {#if problem.labelPredictionStats}
+    <div class="mb-4 p-3 bg-blue-50 rounded-lg">
+      <p class="text-sm font-medium text-blue-800 flex items-center gap-2">
+        <Target class="w-4 h-4" />
+        Label Prediction Test Results
+      </p>
+      <div class="mt-2 grid grid-cols-3 gap-2 text-xs">
+        <div>
+          <p class="text-blue-600">Total Tests</p>
+          <p class="font-semibold text-blue-900">{problem.labelPredictionStats.totalTests}</p>
+        </div>
+        <div>
+          <p class="text-blue-600">Correct</p>
+          <p class="font-semibold text-blue-900">{problem.labelPredictionStats.correctTests}</p>
+        </div>
+        <div>
+          <p class="text-blue-600">Accuracy</p>
+          <p class="font-semibold text-blue-900">{problem.labelPredictionStats.accuracy.toFixed(1)}%</p>
+        </div>
+      </div>
     </div>
   {/if}
   

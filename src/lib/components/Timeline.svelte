@@ -22,6 +22,7 @@
     }
   }
   
+  
   function getEventColor(event: TimelineEvent) {
     switch (event.type) {
       case 'submission':
@@ -57,7 +58,15 @@
       <div class="flex items-start space-x-3">
         <div class="flex-shrink-0">
           <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
-            <svelte:component this={getEventIcon(event)} class="w-5 h-5 {getEventColor(event)}" />
+            {#if event.type === 'submission'}
+              <FileText class="w-5 h-5 {getEventColor(event)}" />
+            {:else if event.type === 'chat'}
+              <MessageSquare class="w-5 h-5 {getEventColor(event)}" />
+            {:else if event.type === 'feedback'}
+              <Award class="w-5 h-5 {getEventColor(event)}" />
+            {:else}
+              <FileText class="w-5 h-5 {getEventColor(event)}" />
+            {/if}
           </div>
         </div>
         <div class="flex-1 min-w-0">
