@@ -82,10 +82,49 @@
           <p class="font-semibold text-blue-900">{problem.labelPredictionStats.correctTests}</p>
         </div>
         <div>
-          <p class="text-blue-600">Accuracy</p>
+          <p class="text-blue-600">Overall Accuracy</p>
           <p class="font-semibold text-blue-900">{problem.labelPredictionStats.accuracy.toFixed(1)}%</p>
         </div>
       </div>
+      
+      {#if problem.labelPredictionStats.bySnapshot.length > 0}
+        <div class="mt-4 border-t border-blue-200 pt-3">
+          <p class="text-xs font-medium text-blue-700 mb-2">Accuracy by Submission Snapshot</p>
+          <div class="space-y-2">
+            {#each problem.labelPredictionStats.bySnapshot as snapshot, idx}
+              <div class="bg-white rounded p-2 border border-blue-100">
+                <div class="flex items-start justify-between mb-1">
+                  <div class="flex-1">
+                    <p class="text-xs font-medium text-gray-700">
+                      Snapshot {idx + 1}
+                      <span class="text-gray-500 font-normal">
+                        ({format(new Date(snapshot.timestamp), 'MMM d, HH:mm:ss')})
+                      </span>
+                    </p>
+                    <p class="text-xs text-gray-600 mt-1 truncate">{snapshot.textPreview}</p>
+                  </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-xs mt-2">
+                  <div>
+                    <p class="text-gray-500">Tests</p>
+                    <p class="font-medium">{snapshot.totalTests}</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Correct</p>
+                    <p class="font-medium">{snapshot.correctTests}</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Accuracy</p>
+                    <p class="font-medium {snapshot.accuracy >= 70 ? 'text-green-700' : snapshot.accuracy >= 50 ? 'text-yellow-700' : 'text-red-700'}">
+                      {snapshot.accuracy.toFixed(1)}%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            {/each}
+          </div>
+        </div>
+      {/if}
     </div>
   {/if}
   

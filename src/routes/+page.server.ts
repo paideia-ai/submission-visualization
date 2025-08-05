@@ -7,6 +7,7 @@ import type {
   ProcessedChat,
   ProcessedSubmission,
   LabelPredictionStats,
+  SnapshotAccuracy,
   ProblemSetItem,
   ChatRequest,
   LabelPredictionPairTest
@@ -148,16 +149,55 @@ export const load: PageServerLoad = async () => {
         let totalTests = 0;
         let correctTests = 0;
         
+        // Group tests by snapshotId
+        const testsBySnapshot = new Map<string, LabelPredictionPairTest[]>();
+        
         for (const progress of progresses) {
-          totalTests += progress.labelPredictionPairTests.length;
-          correctTests += progress.labelPredictionPairTests.filter((test: LabelPredictionPairTest) => test.isCorrect).length;
+          for (const test of progress.labelPredictionPairTests) {
+            totalTests++;
+            if (test.isCorrect) correctTests++;
+            
+            const existing = testsBySnapshot.get(test.snapshotId) || [];
+            existing.push(test);
+            testsBySnapshot.set(test.snapshotId, existing);
+          }
         }
+        
+        // Calculate accuracy per snapshot
+        const bySnapshot: SnapshotAccuracy[] = [];
+        
+        for (const [snapshotId, tests] of testsBySnapshot) {
+          // Find the corresponding submission snapshot
+          let snapshot: ProcessedSubmission | undefined;
+          for (const submission of submissions) {
+            if (submission.id === snapshotId) {
+              snapshot = submission;
+              break;
+            }
+          }
+          
+          const snapshotCorrect = tests.filter(t => t.isCorrect).length;
+          bySnapshot.push({
+            snapshotId,
+            timestamp: snapshot?.timestamp || '',
+            textPreview: snapshot?.textPreview || 'Snapshot not found',
+            totalTests: tests.length,
+            correctTests: snapshotCorrect,
+            accuracy: (snapshotCorrect / tests.length) * 100
+          });
+        }
+        
+        // Sort by timestamp
+        bySnapshot.sort((a, b) => 
+          new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+        );
         
         if (totalTests > 0) {
           labelPredictionStats = {
             totalTests,
             correctTests,
-            accuracy: (correctTests / totalTests) * 100
+            accuracy: (correctTests / totalTests) * 100,
+            bySnapshot
           };
         }
       }

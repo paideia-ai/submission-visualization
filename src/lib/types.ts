@@ -61,10 +61,20 @@ export interface ChatStats {
   customChats: number;
 }
 
+export interface SnapshotAccuracy {
+  snapshotId: string;
+  timestamp: string;
+  textPreview: string;
+  totalTests: number;
+  correctTests: number;
+  accuracy: number;
+}
+
 export interface LabelPredictionStats {
   totalTests: number;
   correctTests: number;
   accuracy: number;
+  bySnapshot: SnapshotAccuracy[];
 }
 
 export interface ProcessedProblem {
