@@ -1,41 +1,64 @@
-# Problem-Solving Session Visualization
+# Problem-Solving Session Data Visualization Dashboard
 
-A SvelteKit application for visualizing problem-solving session data with interactive dashboards and timeline views.
+A SvelteKit application for visualizing problem-solving session data from JSON files.
 
 ## Features
 
-- **Session Overview**: View session status, total problems, submissions, and chat statistics
-- **Interactive Timeline**: Chronological view of all events (submissions, chats, feedback)
-- **Problem Details**: Expandable cards showing submission history and chat sessions for each problem
-- **Chat Activity Visualization**: Stacked bar chart showing AXIIA vs Custom chat usage per problem
-- **Responsive Design**: Mobile-friendly layout with Tailwind CSS
+- **Session Overview**: Display session statistics and completion status
+- **Interactive Timeline**: Chronological view of submissions and chat events
+- **Problem Details**: Expandable cards showing submissions, chats, and feedback
+- **Chat Visualization**: Full conversation display for both AXIIA and custom chats
+- **Accuracy Analytics**: Per-snapshot accuracy breakdown for thinking-traps problem
+- **JSON Import**: Upload custom JSON files with schema validation and detailed error feedback
+- **Responsive Design**: Mobile-friendly interface using Tailwind CSS and Skeleton UI
 
-## Setup
+## Deployment
 
-1. Install dependencies:
+The app is deployed on Fly.io at: https://visualization-app.fly.dev/
+
+## Development
+
 ```bash
 npm install
-```
-
-2. Run the development server:
-```bash
 npm run dev
 ```
 
-3. Open [http://localhost:5173](http://localhost:5173) in your browser
+## Data Schema
 
-## Data Source
+The app uses validated schemas defined in:
+- TypeScript: `src/lib/schemas.ts` (Zod)
+- Python: `../pydantic_schema_corrected.py` (Pydantic)
 
-The application reads visualization data from `../visualization_data.json` relative to the app directory.
+## TODO - Future Features
 
-## Build
+### 1. Problem Set ID Recording
+- Record and display the current problem set ID prominently
+- Track which problem set is being visualized
+- Allow filtering/grouping by problem set ID
 
-To build for production:
-```bash
-npm run build
-```
+### 2. Multi-Problem Set Support
+- When a JSON with a different problem set ID is imported:
+  - Detect the new problem set ID
+  - Only render problems that are supported/recognized
+  - Show a warning for unsupported problems
+  - Allow comparison between different problem sets
 
-Preview the production build:
-```bash
-npm run preview
-```
+### 3. Export System Integration
+- Connect with the existing exporting system
+- Allow exporting visualized data in various formats
+- Support round-trip import/export workflows
+- Maintain data integrity during export/import cycles
+
+### 4. Additional Enhancements
+- Problem set version tracking
+- Historical comparisons across sessions
+- Performance metrics by problem set
+- Batch import for multiple JSON files
+
+## Repository Setup Reminder
+
+**TODO**: 
+1. Rename the folder from `visualization-app` to a more descriptive name (e.g., `problem-session-visualizer`, `axiia-session-dashboard`, etc.)
+2. Create a dedicated GitHub repository for this project
+3. Move the project out of the `tempScript` directory
+4. Set up proper CI/CD with GitHub Actions for Fly.io deployment
