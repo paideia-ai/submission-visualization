@@ -32,7 +32,7 @@ The app uses validated schemas defined in:
 ## TODO - Future Features
 
 ### 1. Problem Set ID Recording
-- Record and display the current problem set ID prominently
+- Record and display the current problem set ID prominently Done: `6bae9d40-1f1f-40b6-a16b-3fd9e6f3337c`
 - Track which problem set is being visualized
 - Allow filtering/grouping by problem set ID
 
@@ -58,7 +58,11 @@ The app uses validated schemas defined in:
 ## Repository Setup Reminder
 
 **TODO**: 
-1. Rename the folder from `visualization-app` to a more descriptive name (e.g., `problem-session-visualizer`, `axiia-session-dashboard`, etc.)
-2. Create a dedicated GitHub repository for this project
-3. Move the project out of the `tempScript` directory
-4. Set up proper CI/CD with GitHub Actions for Fly.io deployment
+1. ~~Rename the folder from `visualization-app` to a more descriptive name (e.g., `problem-session-visualizer`, `axiia-session-dashboard`, etc.)~~ ✓ Done: `submission_visualization`
+2. ~~Create a dedicated GitHub repository for this project~~ ✓ Done: https://github.com/paideia-ai/submission-visualization
+3. ~~Move the project out of the `tempScript` directory~~ ✓ Done
+4. **Set up CI/CD with GitHub Actions for Fly.io deployment**:
+   - Create `.github/workflows/deploy.yml` for automatic deployment on push to main
+   - Add Fly.io API token as GitHub secret (`FLY_API_TOKEN`)
+   - Configure staging and production environments
+   - Add automated testing before deployment

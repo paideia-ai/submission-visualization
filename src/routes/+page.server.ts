@@ -12,15 +12,15 @@ import type {
   ChatRequest,
   LabelPredictionPairTest
 } from '$lib/types';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ fetch }) => {
   try {
-    // Load the original JSON file from the same directory as the app
-    const dataPath = join(process.cwd(), 'lijamie525.json');
-    const rawData = await readFile(dataPath, 'utf-8');
-    const sessions: SessionData = JSON.parse(rawData);
+    // Load the JSON file from the static directory
+    const response = await fetch('/lijamie525.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+    }
+    const sessions: SessionData = await response.json();
     
     // Process the first session (assuming single session for now)
     const session = sessions[0];

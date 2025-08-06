@@ -247,18 +247,24 @@ export const load: PageLoad = async ({ parent, fetch }) => {
   const dataStore = useDataStore();
   
   try {
-    let visualizationData: VisualizationData | null = null;
+    let sessionData: SessionData | null = null;
     
     // Check if we have custom data
     if (dataStore.isCustomData && dataStore.customData) {
-      visualizationData = processSessionData(dataStore.customData);
-      if (!visualizationData) {
-        throw new Error('No session data found in custom file');
-      }
+      sessionData = dataStore.customData;
     } else {
-      // Fetch from server
-      const parentData = await parent();
-      return parentData;
+      // Fetch from server - get the raw JSON data
+      const response = await fetch('/lijamie525.json');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+      }
+      sessionData = await response.json();
+    }
+    
+    // Always process the data through processSessionData
+    const visualizationData = processSessionData(sessionData);
+    if (!visualizationData) {
+      throw new Error('No session data found');
     }
     
     return {
